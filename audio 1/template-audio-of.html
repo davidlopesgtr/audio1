@@ -19,8 +19,9 @@
       align-items: center;
       justify-content: space-between;
       font-family: 'Open Sans', sans-serif;
+      justify-content: flex-start;
       cursor: pointer; 
-      width: 100px;
+      width: 100%;
       background-color: #202c33; /* Cor de fundo do container */
       padding: 10px; /* Espaçamento interno */
       border-radius: 10px; /* Bordas arredondadas */
@@ -43,22 +44,9 @@
       color: #4ad954;
     }
 
-    .audio-container .microphone-icon.blue {
-      color: #3db8ee;
-    }
-
-    .plyr--audio .plyr__control.plyr__tab-focus,
-    .plyr--audio .plyr__control:hover,
-    .plyr--audio .plyr__control[aria-expanded=false] {
-      background: rgba(0, 0, 0, 0);
-      color: rgba(0, 0, 0, 0);
-    }
-
     .plyr--audio .plyr__controls {
       background: rgba(0, 0, 0, 0);
       color: #4a5464;
-      margin-left: 0px;
-      padding: 0px;
     }
 
     .plyr--audio .plyr__control--overlaid .plyr__control__icon {
@@ -69,38 +57,14 @@
       -webkit-appearance: none;
       border: 0;
       border-radius: 100%;
-      box-shadow: 0 1px 1px rgba(35,40,47,.15),0 0 0 1px rgba(35,40,47,.2);
       height: 13px;
       margin-top: -4px;
-      background: var(--range-thumb-background, #4ad954);
-    }  
-
-    .plyr--full-ui input[type=range].blue::-webkit-slider-thumb {
-      background: var(--range-thumb-background-active, #3db8ee);
+      background: #4ad954; /* Cor do botão do slider */
     }
 
     .hide {
       display: none;
     }
-
-    .plyr__controls .plyr__controls__item.plyr__progress__container:first-child,
-    .plyr__controls .plyr__controls__item.plyr__time+.plyr__time,
-    .plyr__controls .plyr__controls__item.plyr__time:first-child {
-      padding-left: 0;
-      display: block;
-      margin-left: 7.5px;
-    }
-
-    .plyr__time+.plyr__time:before {
-      content: "";
-      margin-right: var(--plyr-control-spacing);
-    }
-
-    .plyr--audio .plyr__controls .plyr__controls__item.plyr__time--current.hide,
-    .plyr--audio .plyr__controls .plyr__controls__item.plyr__time--duration.hide {
-      display: none;
-    }
-
   </style>
 </head>
 <body>
@@ -130,8 +94,6 @@
         currentTimeElement.classList.remove('hide');
         durationElement.classList.add('hide');
         microphoneIcon.classList.add('blue'); // Adiciona a classe 'blue' para alterar a cor do ícone
-        audioElement.classList.add('blue'); // Adiciona a classe 'blue' para alterar o background do controle deslizante
-        audioElement.style.setProperty('--range-thumb-background', '#3db8ee');
       });
 
       audioElement.addEventListener('pause', function() {
