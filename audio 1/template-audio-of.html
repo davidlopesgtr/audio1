@@ -7,26 +7,25 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
-
+      
     body {
       height: 100vh;
       overflow: hidden;
-      margin: 0;
-      background-color: #121212; /* Fundo escuro */
-      color: #FFFFFF; /* Cor do texto */
-      font-family: 'Open Sans', sans-serif;
-    }
+      margin: 0px;
+      background-color: #202c33; /* Cor de fundo da página */
+    }    
 
     .audio-container {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      font-family: 'Open Sans', sans-serif;
       cursor: pointer; 
-      width: 300px; /* Largura reduzida */
-      margin: 20px auto; /* Centraliza o container */
-      background-color: #1E1E1E; /* Fundo do container */
-      border-radius: 5px; /* Bordas arredondadas */
+      width: 80%; /* Largura ajustada */
+      margin: 0 auto; /* Centraliza o container */
       padding: 10px; /* Espaçamento interno */
+      background-color: #202c33; /* Cor de fundo do container */
+      border-radius: 10px; /* Bordas arredondadas */
     }
 
     .audio-container img {
@@ -50,10 +49,17 @@
       color: #3db8ee;
     }
 
+    .plyr--audio .plyr__control.plyr__tab-focus,
+    .plyr--audio .plyr__control:hover,
+    .plyr--audio .plyr__control[aria-expanded=false] {
+      background: rgba(0, 0, 0, 0);
+      color: rgba(0, 0, 0, 0);
+    }
+
     .plyr--audio .plyr__controls {
-      background: #1E1E1E; /* Fundo escuro para controles */
-      border-radius: inherit;
-      color: #FFFFFF; /* Cor do texto dos controles */
+      background: rgba(0, 0, 0, 0);
+      color: #4a5464;
+      margin-left: 0px;
       padding: 0px;
     }
 
@@ -62,23 +68,46 @@
     }
 
     .plyr--full-ui input[type=range]::-webkit-slider-thumb {
-      background: #4ad954; /* Cor do botão do slider */
+      -webkit-appearance: none;
+      border: 0;
+      border-radius: 100%;
+      box-shadow: 0 1px 1px rgba(35,40,47,.15),0 0 0 1px rgba(35,40,47,.2);
+      height: 13px;
+      margin-top: -4px;
+      background: var(--range-thumb-background, #4ad954);
     }
 
-    .plyr--full-ui input[type=range]::-webkit-slider-runnable-track {
-      background: #3db8ee; /* Cor da trilha do slider */
+    .plyr--full-ui input[type=range].blue::-webkit-slider-thumb {
+      background: var(--range-thumb-background-active, #3db8ee);
     }
 
     .hide {
       display: none;
     }
+
+    .plyr__controls .plyr__controls__item.plyr__progress__container:first-child,
+    .plyr__controls .plyr__controls__item.plyr__time+.plyr__time,
+    .plyr__controls .plyr__controls__item.plyr__time:first-child {
+      padding-left: 0;
+      display: block;
+      margin-left: 7.5px;
+    }
+
+    .plyr__time+.plyr__time:before {
+      content: "";
+      margin-right: var(--plyr-control-spacing);
+    }
+
+    .plyr--audio .plyr__controls .plyr__controls__item.plyr__time--current.hide,
+    .plyr--audio .plyr__controls .plyr__controls__item.plyr__time--duration.hide {
+      display: none;
+    }
+
   </style>
 </head>
 <body>
   <div class="audio-container" id="audioContainer">
-    <!-- Cole o link do Seu áudio Abaixo-->
     <audio class="plyr" src="https://s3.fr-par.scw.cloud/typebot/public/typebots/bh5pxkef9cd4as06rnz2o3k2/blocks/m435v6oefxku0cm0oyzcg2mb?v=1690997316079"></audio>
-    <!-- Cole o link da Sua imagem Abaixo-->
     <img src="https://i.postimg.cc/5NP3BZvj/david-2.png" alt="Imagem">
     <div class="microphone-icon">
       <i class="fas fa-microphone"></i>
@@ -114,19 +143,6 @@
 
       const audioContainer = document.getElementById('audioContainer');
       audioContainer.addEventListener('click', function() {
-        const playButton = audioContainer.querySelector('.plyr__controls button[data-plyr="play"]');
-        playButton.click();
-      });
-
-      const playPauseButton = document.getElementById('audioContainer').querySelector('.plyr__controls button[data-plyr="play"]');
-      const audioBox = document.querySelector('.audio-box');
-      playPauseButton.addEventListener('click', function() {
-        const playButton = audioContainer.querySelector('.plyr__controls button[data-plyr="play"]');
-        playButton.click();
-      });
-
-      audioBox.addEventListener('click', function(event) {
-        event.stopPropagation(); 
         const playButton = audioContainer.querySelector('.plyr__controls button[data-plyr="play"]');
         playButton.click();
       });
