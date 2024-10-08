@@ -7,21 +7,26 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
-      
+
     body {
       height: 100vh;
       overflow: hidden;
-      margin: 0px;
-    }    
+      margin: 0;
+      background-color: #121212; /* Fundo escuro */
+      color: #FFFFFF; /* Cor do texto */
+      font-family: 'Open Sans', sans-serif;
+    }
 
     .audio-container {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-family: 'Open Sans', sans-serif;
-      justify-content: flex-start;
       cursor: pointer; 
-      width: 100px;
+      width: 300px; /* Largura reduzida */
+      margin: 20px auto; /* Centraliza o container */
+      background-color: #1E1E1E; /* Fundo do container */
+      border-radius: 5px; /* Bordas arredondadas */
+      padding: 10px; /* Espaçamento interno */
     }
 
     .audio-container img {
@@ -45,22 +50,10 @@
       color: #3db8ee;
     }
 
-    .plyr--audio .plyr__control.plyr__tab-focus,
-    .plyr--audio .plyr__control:hover,
-    .plyr--audio .plyr__control[aria-expanded=false] {
-      background: rgba(0, 0, 0, 0);
-      background: var(--plyr-audio-control-background-hover, var(--plyr-color-main, var(--plyr-color-main, rgba(0, 0, 0, 0))));
-      color: rgba(0, 0, 0, 0);
-      color: var(--plyr-audio-control-color-hover, #797979)
-    }
-
     .plyr--audio .plyr__controls {
-      background: rgba(0, 0, 0, 0);
-      background: var(--plyr-audio-controls-background, rgba(0, 0, 0, 0));
+      background: #1E1E1E; /* Fundo escuro para controles */
       border-radius: inherit;
-      color: #4a5464;
-      color: var(--plyr-audio-control-color,#4a5464);
-      margin-left: 0px;
+      color: #FFFFFF; /* Cor do texto dos controles */
       padding: 0px;
     }
 
@@ -69,49 +62,16 @@
     }
 
     .plyr--full-ui input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      border: 0;
-      border-radius: 100%;
-      box-shadow: 0 1px 1px rgba(35,40,47,.15),0 0 0 1px rgba(35,40,47,.2);
-      box-shadow: var(--plyr-range-thumb-shadow,0 1px 1px rgba(35,40,47,.15),0 0 0 1px rgba(35,40,47,.2));
-      height: 13px;
-      height: var(--plyr-range-thumb-height,13px);
-      margin-top: -4px;
-      margin-top: calc(var(--plyr-range-thumb-height,13px)/2*-1 - var(--plyr-range-track-height,5px)/2*-1);
-      position: relative;
-      -webkit-transition: all .2s ease;
-      transition: all .2s ease;
-      width: 13px;
-      width: var(--plyr-range-thumb-height,13px);
-      background: var(--range-thumb-background, #4ad954);
-    }  
-
-    .plyr--full-ui input[type=range].blue::-webkit-slider-thumb {
-      background: var(--range-thumb-background-active, #3db8ee);
+      background: #4ad954; /* Cor do botão do slider */
     }
-  
+
+    .plyr--full-ui input[type=range]::-webkit-slider-runnable-track {
+      background: #3db8ee; /* Cor da trilha do slider */
+    }
+
     .hide {
       display: none;
     }
-
-    .plyr__controls .plyr__controls__item.plyr__progress__container:first-child,
-    .plyr__controls .plyr__controls__item.plyr__time+.plyr__time,
-    .plyr__controls .plyr__controls__item.plyr__time:first-child {
-      padding-left: 0;
-      display: block;
-      margin-left: 7.5px;
-    }
-
-    .plyr__time+.plyr__time:before {
-      content: "";
-      margin-right: var(--plyr-control-spacing);
-    }
-
-    .plyr--audio .plyr__controls .plyr__controls__item.plyr__time--current.hide,
-    .plyr--audio .plyr__controls .plyr__controls__item.plyr__time--duration.hide {
-      display: none;
-    }
-
   </style>
 </head>
 <body>
