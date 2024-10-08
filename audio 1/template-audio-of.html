@@ -21,12 +21,12 @@
         .audio-container {
             display: flex;
             align-items: center;
-            background-color: #202c33;
+            background-color: #202c33; /* Cor de fundo da caixa */
             border-radius: 10px;
-            padding: 10px;
-            width: 320px; /* Ajuste a largura conforme necessário */
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 8px 10px; /* Ajustado para deixar compacto */
+            width: 300px; /* Largura ajustável */
             position: relative;
+            cursor: pointer;
         }
 
         .audio-container img {
@@ -45,27 +45,27 @@
 
         .visualizer {
             position: absolute;
-            bottom: 10px;
+            bottom: 5px; /* Ajustado para ficar mais próximo da base */
             left: 10px;
             width: calc(100% - 20px);
-            height: 20px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
+            height: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
             overflow: hidden;
         }
 
         .bar {
-            display: inline-block;
             background-color: #4ad954;
-            height: 100%;
+            height: 10px; /* Altura inicial */
             width: 4px;
-            margin-right: 1px;
+            margin-right: 2px;
             animation: bounce 0.5s infinite alternate;
         }
 
         @keyframes bounce {
-            0% { height: 10px; }
-            100% { height: 20px; }
+            0% { height: 5px; }
+            100% { height: 10px; }
         }
     </style>
 </head>
@@ -92,7 +92,6 @@
                 controls: ['play', 'progress', 'current-time', 'duration']
             });
 
-            const audioElement = document.querySelector('.plyr');
             const audioContainer = document.getElementById('audioContainer');
 
             audioContainer.addEventListener('click', function() {
