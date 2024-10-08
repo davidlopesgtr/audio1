@@ -7,68 +7,110 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
-      
+
     body {
       height: 100vh;
       overflow: hidden;
-      margin: 0;
-    }    
+      margin: 0px;
+    }
 
     .audio-container {
       display: flex;
       align-items: center;
-      background-color: #202c33; /* Cor de fundo do container */
-      padding: 5px; /* Espaçamento interno */
-      border-radius: 10px; /* Bordas arredondadas */
-      width: auto; /* Largura automática */
-      max-width: 80px; /* Largura máxima da caixa */
-      cursor: default; /* Cursor padrão */
+      justify-content: space-between;
+      font-family: 'Open Sans', sans-serif;
+      justify-content: flex-start;
+      cursor: pointer;
+      width: 100px;
+      background-color: #202c33; /* Cor de fundo alterada */
     }
 
     .audio-container img {
-      width: 40px; /* Largura da imagem */
-      height: 40px; /* Altura da imagem */
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
       object-fit: cover;
-      margin-right: 5px; /* Espaçamento à direita */
+      padding-right: 8px;
+      padding-left: 10px;
     }
 
-    .microphone-icon {
-      font-size: 18px; /* Tamanho do ícone do microfone */
-      color: #4ad954; /* Cor do ícone */
+    .audio-container .microphone-icon {
+      position: relative;
+      margin-left: -67px;
+      margin-bottom: -25px;
+      font-size: 22px;
+      color: #4ad954;
+    }
+
+    .audio-container .microphone-icon.blue {
+      color: #3db8ee;
+    }
+
+    .plyr--audio .plyr__control.plyr__tab-focus,
+    .plyr--audio .plyr__control:hover,
+    .plyr--audio .plyr__control[aria-expanded=false] {
+      background: rgba(0, 0, 0, 0);
+      color: rgba(0, 0, 0, 0);
     }
 
     .plyr--audio .plyr__controls {
       background: rgba(0, 0, 0, 0);
+      border-radius: inherit;
       color: #4a5464;
-      display: none; /* Oculta os controles */
+      margin-left: 0px;
+      padding: 0px;
     }
 
-    /* Estilo do botão de play */
-    .play-button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      outline: none;
+    .plyr--audio .plyr__control--overlaid .plyr__control__icon {
+      font-size: 33px;
+    }
+
+    .plyr--full-ui input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      border: 0;
+      border-radius: 100%;
+      height: 13px;
+      width: 13px;
+      background: var(--range-thumb-background, #4ad954);
+    }
+
+    .plyr--full-ui input[type=range].blue::-webkit-slider-thumb {
+      background: var(--range-thumb-background-active, #3db8ee);
     }
 
     .hide {
       display: none;
     }
+
+    .plyr__controls .plyr__controls__item.plyr__progress__container:first-child,
+    .plyr__controls .plyr__controls__item.plyr__time+.plyr__time,
+    .plyr__controls .plyr__controls__item.plyr__time:first-child {
+      padding-left: 0;
+      display: block;
+      margin-left: 7.5px;
+    }
+
+    .plyr__time+.plyr__time:before {
+      content: "";
+      margin-right: var(--plyr-control-spacing);
+    }
+
+    .plyr--audio .plyr__controls .plyr__controls__item.plyr__time--current.hide,
+    .plyr--audio .plyr__controls .plyr__controls__item.plyr__time--duration.hide {
+      display: none;
+    }
+
   </style>
 </head>
 <body>
   <div class="audio-container" id="audioContainer">
     <audio class="plyr" src="https://s3.fr-par.scw.cloud/typebot/public/typebots/bh5pxkef9cd4as06rnz2o3k2/blocks/m435v6oefxku0cm0oyzcg2mb?v=1690997316079"></audio>
     <img src="https://i.postimg.cc/5NP3BZvj/david-2.png" alt="Imagem">
-    <button class="play-button" id="playButton">
-      <i class="fas fa-play"></i> <!-- Ícone do play -->
-    </button>
     <div class="microphone-icon">
       <i class="fas fa-microphone"></i>
     </div>
   </div>
-  
+
   <script src="https://cdn.plyr.io/3.6.7/plyr.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -77,23 +119,31 @@
       });
 
       const audioElement = document.querySelector('.plyr');
-      const playButton = document.getElementById('playButton');
+      const currentTimeElement = document.querySelector('.plyr__time--current');
+      const durationElement = document.querySelector('.plyr__time--duration');
+      const microphoneIcon = document.querySelector('.microphone-icon');
 
-      playButton.addEventListener('click', function() {
-        if (audioElement.paused) {
-          audioElement.play();
-          playButton.innerHTML = '<i class="fas fa-pause"></i>'; // Troca para o ícone de pausa
-        } else {
-          audioElement.pause();
-          playButton.innerHTML = '<i class="fas fa-play"></i>'; // Troca para o ícone de play
-        }
+      currentTimeElement.classList.add('hide'); // Adiciona a classe 'hide' ao iniciar
+
+      audioElement.addEventListener('play', function() {
+        currentTimeElement.classList.remove('hide');
+        durationElement.classList.add('hide');
+        microphoneIcon.classList.add('blue'); // Adiciona a classe 'blue' para alterar a cor do ícone
+        audioElement.classList.add('blue'); // Adiciona a classe 'blue' para alterar o background do controle deslizante
+        audioElement.style.setProperty('--range-thumb-background', '#3db8ee');
       });
 
-      audioElement.addEventListener('ended', function() {
-        playButton.innerHTML = '<i class="fas fa-play"></i>'; // Reseta para o ícone de play quando o áudio termina
+      audioElement.addEventListener('pause', function() {
+        currentTimeElement.classList.add('hide');
+        durationElement.classList.remove('hide');
+      });
+
+      const audioContainer = document.getElementById('audioContainer');
+      audioContainer.addEventListener('click', function() {
+        const playButton = audioContainer.querySelector('.plyr__controls button[data-plyr="play"]');
+        playButton.click();
       });
     });
   </script>
 </body>
 </html>
-
